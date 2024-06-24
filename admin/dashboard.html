@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- box icons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet" />
+    <!-- css -->
+    <link rel="stylesheet" href="stylebar.css" />
+    <title>Dashboard Admin</title>
+  </head>
+  <body>
+    <!-- sidebar -->
+    <div class="sidebar" id="sidebar">
+      <a href="#" class="logo">
+        <i class="bx bxs-book"></i>
+        <div class="logo-name"><span>Book</span>Wise</div>
+      </a>
+      <ul class="side-menu">
+        <li class="active">
+          <a href="#">
+            <i class="bx bxs-dashboard"></i>
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="category.html">
+            <i class="bx bxs-book-bookmark"></i>
+            Category
+          </a>
+        </li>
+        <li>
+          <a href="book.html">
+            <i class="bx bxs-book-reader"></i>
+            Book
+          </a>
+        </li>
+      </ul>
+      <ul class="side-menu">
+        <li>
+          <a href="#" class="logout" id="signOut">
+            <i class="bx bx-log-out-circle"></i>
+            Logout
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- sidebar -->
+
+    <!-- main content -->
+    <div class="content">
+      <!-- navbar -->
+      <nav>
+        <i class='bx bx-menu'></i>
+        <form action="#">
+          <div class="form-input">
+            <input type="search" name id placeholder="Search...">
+            <button class="search-btn" type="submit"><i
+                class='bx bx-search'></i></button>
+          </div>
+        </form>
+        <input type="checkbox" name id="theme-toggle" hidden>
+        <label for="theme-toggle" class="theme-toggle"></label>
+        <a href="#" class="notif">
+          <i class='bx bx-bell'></i>
+          <span class="count">12</span>
+        </a>
+        <a href="#" class="profile">
+          <img src="img/profile.jpg" alt>
+        </a>
+      </nav>
+      <!-- navbar -->
+      <main>
+        <div class="header">
+          <div class="left">
+            <h1>Dashboard</h1>
+            <ul class="breadcrumb">
+              <li><a href="#">
+                  BookWise
+                </a></li>
+              /
+              <li><a href="#" class="active">Dashboard</a></li>
+            </ul>
+          </div>
+          <a href="#" class="report">
+            <i class='bx bx-cloud-download'></i>
+            <span>Download CSV</span>
+          </a>
+        </div>
+
+        <!-- Insights -->
+        <ul class="insights">
+          <li>
+            <i class='bx bxs-book-bookmark'></i>
+            <span class="info">
+              <h3>
+                10
+              </h3>
+              <p>Category</p>
+            </span>
+          </li>
+          <li><i class='bx bxs-book-reader'></i>
+            <span class="info">
+              <h3>
+                300
+              </h3>
+              <p>Book</p>
+            </span>
+          </li>
+          <li><i class='bx bx-show-alt'></i>
+            <span class="info">
+              <h3>
+                14,721
+              </h3>
+              <p>Site Visit</p>
+            </span>
+          </li>
+
+          <!-- End of Insights -->
+
+          <div class="bottom-data">
+            <div class="orders">
+              <div class="header">
+                <i class='bx bx-receipt'></i>
+                <h3>Data Login Admin</h3>
+                <i class='bx bx-filter'></i>
+                <i class='bx bx-search'></i>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Waktu Login</th>
+                    <th>Email</th>
+                    <th>Admin</th>
+                    <th>No HP</th>
+                    <th>Status</th>
+                    <th>Waktu Logout</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- End of Reminders-->
+
+          </div>
+
+        </main>
+      </div>
+      <!-- sidebar -->
+
+      <!-- script -->
+      <script>
+    let userCreds = JSON.parse(sessionStorage.getItem("user-credentials"));
+    let userInfo = JSON.parse(sessionStorage.getItem("user-info"));
+
+    let signOut = () => {
+      sessionStorage.removeItem("user-credentials");
+      sessionStorage.removeItem("user-info");
+      window.location.href = 'index.html';
+    }
+
+    let checkCreds = () => {
+      if (!sessionStorage.getItem("user-credentials"))
+        window.location.href = 'index.html';
+    }
+
+    window.addEventListener('load', () => {
+      checkCreds();
+
+      // Tambahkan event listener pada elemen logout setelah halaman selesai dimuat
+      const signOutElement = document.getElementById('signOut');
+      if (signOutElement) {
+        signOutElement.addEventListener('click', (event) => {
+          event.preventDefault(); // Mencegah tindakan default dari elemen <a>
+          signOut();
+          window.location.href = 'index.html'
+          sessionStorage.removeItem("user-credentials");
+          sessionStorage.removeItem("user-info");
+        });
+      }
+    });
+  </script>
+
+      <!-- <script type="module" src="script.js"></script> -->
+      <script type="module" src="scriptbar.js"></script>
+    </body>
+  </html>

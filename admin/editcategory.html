@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link rel="stylesheet" href="stylebar.css" />
+  <title>Edit Category</title>
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <a href="#" class="logo">
+      <i class="bx bxs-book"></i>
+      <div class="logo-name"><span>Book</span>Wise</div>
+    </a>
+    <ul class="side-menu">
+      <li>
+        <a href="#">
+          <i class="bx bxs-dashboard"></i>
+          Dashboard
+        </a>
+      </li>
+      <li class="active">
+        <a href="category.html">
+          <i class="bx bxs-book-bookmark"></i>
+          Category
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bxs-book-reader"></i>
+          Book
+        </a>
+      </li>
+    </ul>
+    <ul class="side-menu">
+      <li>
+        <a href="#" class="logout" id="signOut">
+          <i class="bx bx-log-out-circle"></i>
+          Logout
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="content">
+    <nav>
+      <i class="bx bx-menu"></i>
+      <form action="#">
+        <div class="form-input">
+          <input type="search" name id placeholder="Search..." />
+          <button class="search-btn" type="submit"><i class="bx bx-search"></i></button>
+        </div>
+      </form>
+      <input type="checkbox" name id="theme-toggle" hidden />
+      <label for="theme-toggle" class="theme-toggle"></label>
+      <a href="#" class="notif">
+        <i class="bx bx-bell"></i>
+        <span class="count">12</span>
+      </a>
+      <a href="#" class="profile">
+        <img src="img/profile.jpg" alt />
+      </a>
+    </nav>
+
+    <main>
+      <div class="header">
+        <div class="left">
+          <h1>Edit Category</h1>
+          <ul class="breadcrumb">
+            <li><a href="#"> BookWise </a></li> /
+            <li><a href="#" class="active">Edit Category</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="form">
+        <form id="edit-form">
+          <div class="mb-3">
+            <label for="edit-category-id" class="form-label">Category ID</label>
+            <input type="text" class="form-control" id="edit-category-id" />
+            <label for="edit-category-title" class="form-label">Category Title</label>
+            <input type="text" class="form-control" id="edit-category-title" />
+          </div>
+          <a href="category.html" class="btn btn-danger" id="btn-back">Back</a>
+          <button type="submit" class="btn btn-primary" id="btnInput">Update</button>
+        </form>
+      </div>
+    </main>
+
+    <script>
+      let userCreds = JSON.parse(sessionStorage.getItem('user-credentials'));
+      let userInfo = JSON.parse(sessionStorage.getItem('user-info'));
+
+      let signOut = () => {
+        sessionStorage.removeItem('user-credentials');
+        sessionStorage.removeItem('user-info');
+        window.location.href = 'index.html';
+      };
+
+      let checkCreds = () => {
+        if (!sessionStorage.getItem('user-credentials')) window.location.href = 'index.html';
+      };
+
+      window.addEventListener('load', () => {
+        checkCreds();
+
+        const signOutElement = document.getElementById('signOut');
+        if (signOutElement) {
+          signOutElement.addEventListener('click', (event) => {
+            event.preventDefault();
+            signOut();
+            window.location.href = 'index.html';
+            sessionStorage.removeItem('user-credentials');
+            sessionStorage.removeItem('user-info');
+          });
+        }
+      });
+    </script>
+    <script type="module" src="scriptbar.js"></script>
+    <script type="module" src="crud_category.js"></script>
+  </body>
+</html>
