@@ -117,33 +117,51 @@
       </main>
 
       <script>
-        let userCreds = JSON.parse(sessionStorage.getItem('user-credentials'));
-        let userInfo = JSON.parse(sessionStorage.getItem('user-info'));
+        // Mengambil informasi pengguna dari localStorage
+        let userInfo = {
+          nama: localStorage.getItem("nama"),
+          nohp: localStorage.getItem("nohp"),
+          email: localStorage.getItem("email"),
+          userType: localStorage.getItem("userType"),
+          timestamp: parseInt(localStorage.getItem("timestamp")) // konversi ke integer jika perlu
+        };
 
+    
+        // Fungsi untuk menangani logout
         let signOut = () => {
-          sessionStorage.removeItem('user-credentials');
-          sessionStorage.removeItem('user-info');
+          localStorage.removeItem("nama");
+          localStorage.removeItem("nohp");
+          localStorage.removeItem("email");
+          localStorage.removeItem("userType");
+          localStorage.removeItem("timestamp");
+          localStorage.removeItem("userInfo"); // Hapus juga userInfo jika diperlukan
           window.location.href = 'index.html';
         };
-
-        let checkCreds = () => {
-          if (!sessionStorage.getItem('user-credentials')) window.location.href = 'index.html';
-        };
-
-        window.addEventListener('load', () => {
-          checkCreds();
-
-          const signOutElement = document.getElementById('signOut');
-          if (signOutElement) {
-            signOutElement.addEventListener('click', (event) => {
-              event.preventDefault();
-              signOut();
-              window.location.href = 'index.html';
-              sessionStorage.removeItem('user-credentials');
-              sessionStorage.removeItem('user-info');
-            });
+    
+        // Fungsi untuk memeriksa apakah informasi pengguna ada
+        let checkUserInfo = () => {
+          if (!localStorage.getItem("email")) {
+            window.location.href = 'index.html';
           }
-          
+        }
+    
+        // Event listener untuk memuat halaman
+        let logoutButton = document.getElementById('signOut'); // Ganti dengan id yang sesuai dari elemen logout
+        if (logoutButton) {
+          logoutButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            signOut();
+          });
+        }
+
+        // Tambahkan event listener untuk event sebelum halaman ditutup (beforeunload)
+        window.addEventListener('beforeunload', (event) => {
+          // Lakukan logout jika pengguna masih login
+          if (localStorage.getItem("email")) {
+            signOut();
+            // Pesan ini mungkin tidak akan ditampilkan oleh semua browser saat beforeunload digunakan
+            event.returnValue = 'Anda akan logout dari sesi ini.';
+          }
         });
       </script>
       <script type="module" src="scriptbar.js"></script>
